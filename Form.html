@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  </head>
+
+<body>
+  <div class="container">
+    <form onsubmit="validateform()" method="post">
+      <h2 class="ml-2 font-weight-bold ">Enter Details</h2>
+      <div class="form-group mt-4 row">
+        <input type="text" placeholder="enter your email" id="mail" name="mail" class="form-control ml-2 col-4"
+          onblur="validate3()">
+        <i id="error3" class="text-danger ml-2 font-weight-bold"></i>
+      </div>
+      <div class="form-group mt-4 row">
+        <input type="password" placeholder="enter password" id="pass" name="pass" class="form-control ml-2 col-4"
+          onblur="validate4()">
+        <i id="error4" class="text-danger ml-2 font-weight-bold"></i>
+      </div>
+      <div class="form-group mt-4 row">
+        <input type="password" placeholder="enter confirm password" id="confirm_pass"  class="form-control ml-2 col-4"
+          onblur="validate5()">
+        <i id="error5" class="text-danger ml-2 font-weight-bold"></i>
+      </div>
+      <div class="form-group">
+        <input type="button" value="Submit" id="submit" class="btn btn-success ml-2" onclick="validate()">
+      </div>
+    </form>
+  </div>
+  <script>
+    function validate3() {
+      let mailnode = document.getElementById("mail");
+      let errornode3 = document.getElementById("error3");
+      let email = mailnode.value;
+      let ss = email.substring(email.indexOf("@") + 1);
+      if (email == "") {
+        errornode3.innerHTML = "This field is required";
+        mailnode.style.border = "2px solid red";
+      }
+      else if (!email.includes("@") || ss == "") {
+        errornode3.innerHTML = "Please Enter valid email";
+        mailnode.style.border = "2px solid red";
+        // return false;
+      }
+      else {
+        mailnode.style.border = "2px solid green";
+      }
+    }
+    function validate4() {
+
+      let passnode = document.getElementById("pass");
+      let errornode4 = document.getElementById("error4");
+      let pwd = passnode.value;
+      console.log(pwd);
+      let regexp = new RegExp("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])");
+      if (pwd == "") {
+        errornode4.innerHTML = "This field is required";
+        passnode.style.border = "2px solid red";
+        // return false;
+      }
+      else if (regexp.test(pwd) == false) {
+        errornode4.innerHTML = "Password should be aplhanumeric with atleast one special symbol";
+        passnode.style.border = "2px solid red";
+        // return false;
+      }
+      else {
+        passnode.style.border = "2px solid green";
+        // return true;
+      }
+
+    }
+
+    function validate5() {
+      let cpwd=document.getElementById('confirm_pass').value;
+      let pwd = document.getElementById("pass").value;
+      if(cpwd=='')
+      {
+        document.getElementById('error5').innerHTML="This field is required";
+        document.getElementById('confirm_pass').style.border="2px solid red";
+      }
+      else if(cpwd!=pwd)
+      {        
+        document.getElementById('error5').innerHTML="Password not matched";
+        document.getElementById('confirm_pass').style.border="2px solid red";
+      }
+      else
+      document.getElementById('confirm_pass').style.border="2px solid green";
+
+    }
+
+    function validate() {
+      let s1 = validate3();
+      let s2 = validate4();
+      let s3 = validate5();
+      if(s1 && s2 && s3)
+        return true;
+      
+    }
+  </script>
+</body>
+
+</html>
